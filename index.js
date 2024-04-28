@@ -25,7 +25,7 @@ client.on('messageCreate', (message) => {
 });
 
 async function scheduleCatPicture() {
-    const channel = client.channels.cache.find(ch => ['meow', 'cats', 'cat pics', 'kitten pics'].includes(ch.name.toLowerCase()));
+    const channel = client.channels.cache.find(ch => ['meow', 'cats', 'cat pics', 'kitten pics', 'welc'].includes(ch.name.toLowerCase()));
     if (channel) {
         await sendCatPicture(channel);
     }
