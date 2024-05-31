@@ -7,7 +7,7 @@ const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
 
-const PREFIX = '!';
+const PREFIXES = ['meow', 'prr', 'prrr', 'hss', '🐱', '🐈'];
 
 client.once('ready', () => {
     console.log('Bot is online!');
@@ -19,13 +19,13 @@ client.on('messageCreate', (message) => {
 
     const content = message.content.toLowerCase();
 
-    if (content.includes('meow')) {
+    if (PREFIXES.some(prefix => content.startsWith(prefix))) {
         sendCatPicture(message.channel);
     }
 });
 
 async function scheduleCatPicture() {
-    const channel = client.channels.cache.find(ch => ['meow', 'cats', 'cat pics', 'kitten pics', 'gen'].includes(ch.name.toLowerCase()));
+    const channel = client.channels.cache.find(ch => ['meow', 'cat', 'cat pics', 'kitten pics', 'gen'].includes(ch.name.toLowerCase()));
     if (channel) {
         await sendCatPicture(channel);
     }
@@ -51,7 +51,6 @@ async function getRandomCatImage() {
 
 client.login(process.env.DISCORD_TOKEN);
 
-// Keep the bot alive on Replit
 const server = http.createServer((req, res) => {
     res.writeHead(200);
     res.end('Bot is running!');
