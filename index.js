@@ -19,7 +19,7 @@ client.on('messageCreate', (message) => {
 
     const content = message.content.toLowerCase();
 
-    if (PREFIXES.some(prefix => content.startsWith(prefix))) {
+    if (PREFIXES.some(prefix => content.includes(prefix))) {
         sendCatPicture(message.channel);
     }
 });
@@ -42,7 +42,7 @@ async function sendCatPicture(channel) {
 async function getRandomCatImage() {
     const response = await fetch('https://api.thecatapi.com/v1/images/search', {
         headers: {
-            'x-api-key': process.env.CAT_API_KEY
+            'x-api-key': process.env.DOG_API_KEY
         }
     });
     const data = await response.json();
