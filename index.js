@@ -18,8 +18,9 @@ client.on('messageCreate', (message) => {
     if (message.author.bot) return;
 
     const content = message.content.toLowerCase();
+    const botMentioned = message.mentions.has(client.user);
 
-    if (PREFIXES.some(prefix => content.includes(prefix))) {
+    if (PREFIXES.some(prefix => content.includes(prefix)) || botMentioned) {
         sendCatPicture(message.channel);
     }
 });
@@ -34,7 +35,7 @@ async function scheduleCatPicture() {
 
 async function sendCatPicture(channel) {
     const imageUrl = await getRandomCatImage();
-    const fileName = imageUrl.endsWith('.gif') ? imageUrl.split('/').pop() : 'mellanspel_on_instagram.jpg';
+    const fileName = imageUrl.endsWith('.gif') ? imageUrl.split('/').pop() : 'cat_picture.jpg';
     const attachment = new MessageAttachment(imageUrl, fileName);
     channel.send({ files: [attachment] });
 }
